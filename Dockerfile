@@ -73,6 +73,7 @@ RUN \
       --without-orber \
       --without-percept \
       --without-typer \
+      --with-dialyzer \
       --enable-threads \
       --enable-shared-zlib \
       --enable-ssl=dynamic-ssl-lib \
