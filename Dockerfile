@@ -1,6 +1,7 @@
 FROM alpine:3.8
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
+MAINTAINER Phil Toland <phil@hippware.com>
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
