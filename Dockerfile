@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.9
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 MAINTAINER Phil Toland <phil@hippware.com>
@@ -7,12 +7,12 @@ MAINTAINER Phil Toland <phil@hippware.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2018-07-31 \
+ENV REFRESHED_AT=2019-02-15 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     # Set this so that CTRL+G works properly
     TERM=xterm \
-    ERLANG_VERSION=21.0.3
+    ERLANG_VERSION=21.2
 
 WORKDIR /tmp/erlang-build
 
@@ -23,19 +23,19 @@ RUN \
     adduser -s /bin/sh -u 1001 -G root -h "${HOME}" -S -D default && \
     chown -R 1001:0 "${HOME}" && \
     # Add tagged repos as well as the edge repo so that we can selectively install edge packages
-    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.8/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories && \
-    echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.9/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.9/community" >> /etc/apk/repositories && \
+    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
     apk --no-cache upgrade && \
     # Distillery requires bash
     apk add --no-cache bash && \
     # Install Erlang/OTP deps
-    apk add --no-cache pcre@edge && \
     apk add --no-cache \
       ca-certificates \
       openssl-dev \
       ncurses-dev \
+      pcre \
       unixodbc-dev \
       zlib-dev && \
     # Install Erlang/OTP build deps
