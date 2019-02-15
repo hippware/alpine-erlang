@@ -7,12 +7,12 @@ MAINTAINER Phil Toland <phil@hippware.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2019-02-15 \
+ENV REFRESHED_AT=2019-01-31 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     # Set this so that CTRL+G works properly
     TERM=xterm \
-    ERLANG_VERSION=21.2
+    ERLANG_VERSION=21.2.4
 
 WORKDIR /tmp/erlang-build
 
@@ -27,11 +27,11 @@ RUN \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.9/community" >> /etc/apk/repositories && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
-    apk --no-cache upgrade && \
-    # Distillery requires bash
-    apk add --no-cache bash && \
-    # Install Erlang/OTP deps
-    apk add --no-cache \
+    apk --no-cache --update --available upgrade && \
+    # Distillery requires bash Install bash and Erlang/OTP deps
+    apk add --no-cache --update pcre@edge && \
+    apk add --no-cache --update \
+      bash \
       ca-certificates \
       openssl-dev \
       ncurses-dev \
@@ -91,7 +91,7 @@ RUN \
       rm -rf /usr/lib/erlang/usr/ && \
       rm -rf /usr/lib/erlang/misc/ && \
       for DIR in /usr/lib/erlang/erts* /usr/lib/erlang/lib/*; do \
-          rm -rf ${DIR}/src; \
+          rm -rf ${DIR}/src/*.erl; \
           rm -rf ${DIR}/doc; \
           rm -rf ${DIR}/man; \
           rm -rf ${DIR}/examples; \
