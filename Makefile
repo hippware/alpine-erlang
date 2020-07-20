@@ -3,8 +3,8 @@
 VERSION ?= `cat VERSION`
 MAJ_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1/')
 MIN_VERSION := $(shell echo $(VERSION) | sed 's/\([0-9][0-9]*\)\.\([0-9][0-9]*\)\(\.[0-9][0-9]*\)*/\1.\2/')
-IMAGE_NAME ?= bitwalker/alpine-erlang
-ARM_IMAGE_NAME ?= bitwalker/alpine-erlang-armv8
+IMAGE_NAME ?= hippware/alpine-erlang
+ARM_IMAGE_NAME ?= hippware/alpine-erlang-armv8
 
 help:
 	@echo "$(IMAGE_NAME):$(VERSION)"

@@ -114,6 +114,7 @@ RUN \
 FROM alpine:3.11.6
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
+MAINTAINER Phil Toland <phil@hippware.com>
 
 ENV LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
